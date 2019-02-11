@@ -30,6 +30,21 @@ class THeadList
 			size = 0;
 		}
 
+		~THeadList() //деструктор
+		{
+			pCurr = pFirst;
+			if (size != 0)
+			{
+				while (pCurr!=pLast)
+				{
+					pPrev = pCurr;
+					pCurr = pCurr->pNext;
+					delete pPrev;
+				}
+			}
+			delete pHead;
+		}
+
 		void InsFirst(const T elem) //Добавить в 1 ячейку
 		{
 			TLink<T>*tmp = new TLink<T>;
@@ -73,5 +88,15 @@ class THeadList
 			}
 		}
 
+		void DelFirst()
+		{
+			if (size != 0)
+			{
+				pHead->pNext = pFirst->pNext;
+				delete pFirst;
+				pFirst = pHead->pNext;
+				size--; pos--;
+			}
+		}
 
 };
