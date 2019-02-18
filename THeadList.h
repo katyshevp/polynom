@@ -18,8 +18,8 @@ class THeadList
 	protected: 
 		TLink<T> *pHead, *pFirst, *pPrev, *pCurr, *pLast;
 		int pos, size;
-	public:	
 
+	public:	
 		THeadList() //конструктор
 		{
 			TLink<T>*tmp = new TLink<T>;
@@ -33,14 +33,11 @@ class THeadList
 		~THeadList() //деструктор
 		{
 			pCurr = pFirst;
-			if (size != 0)
+			while (pCurr != pHead)
 			{
-				while (pCurr!=pLast)
-				{
-					pPrev = pCurr;
-					pCurr = pCurr->pNext;
-					delete pPrev;
-				}
+				pPrev = pCurr;
+				pCurr = pCurr->pNext;
+				delete pPrev;
 			}
 			delete pHead;
 		}
@@ -88,7 +85,7 @@ class THeadList
 			}
 		}
 
-		void DelFirst()
+		void DelFirst() //удалить первый
 		{
 			if (size != 0)
 			{
@@ -97,6 +94,25 @@ class THeadList
 				pFirst = pHead->pNext;
 				size--; pos--;
 			}
+		}
+
+		void Reset() //сброс текущего
+		{
+			pCurr = pFirst;
+			pPrev = pHead;
+			pos = 0;
+		}
+
+		void GoNext() //передвинуть на шаг вперед
+		{
+			pPrev = pCurr;
+			pCurr = pCurr->pNext;
+			pos++;
+		}
+
+		bool IsEnd() //проверить последний или нет
+		{
+			return(pCurr == pHead);
 		}
 
 };

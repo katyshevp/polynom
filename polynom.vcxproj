@@ -113,6 +113,7 @@
   <ItemGroup>
     <ClInclude Include="THeadList.h" />
     <ClInclude Include="TMonom.h" />
+    <ClInclude Include="TPolinom.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
