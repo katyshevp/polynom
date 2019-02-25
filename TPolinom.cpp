@@ -34,10 +34,6 @@ void TPolinom::operator*=(double d)
 	}
 }
 
-inline void TPolinom::operator*=(TMonom & m)
-{
-}
-
 void TPolinom::operator*=(TMonom &m)
 {
 	for (Reset(); !IsEnd(); GoNext())
@@ -54,7 +50,7 @@ void TPolinom::operator*=(TMonom &m)
 	}
 }
 
-void TPolinom::operator+=(const TPolinom q)
+void TPolinom::operator+=(TPolinom q)
 {
 	TMonom pM, qM, rM;
 	Reset(); q.Reset();
@@ -88,5 +84,5 @@ void TPolinom::operator+=(const TPolinom q)
 						GoNext();
 					}
 				}
-	}
+	} 
 }
