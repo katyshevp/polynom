@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "polynom", "polynom.vcxproj", "{787887D0-DAD1-42C4-B0D7-382159C68B4B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestProject", "..\..\..\..\Users\Павел\source\repos\mp2-lab3-stack\TestProject\TestProject.vcxproj", "{A2AD2C67-CD1C-4DC6-B931-4DB08015AD1C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,12 @@ Global
 		{787887D0-DAD1-42C4-B0D7-382159C68B4B}.Release|x64.Build.0 = Release|x64
 		{787887D0-DAD1-42C4-B0D7-382159C68B4B}.Release|x86.ActiveCfg = Release|Win32
 		{787887D0-DAD1-42C4-B0D7-382159C68B4B}.Release|x86.Build.0 = Release|Win32
+		{A2AD2C67-CD1C-4DC6-B931-4DB08015AD1C}.Debug|x64.ActiveCfg = Debug|Win32
+		{A2AD2C67-CD1C-4DC6-B931-4DB08015AD1C}.Debug|x86.ActiveCfg = Debug|Win32
+		{A2AD2C67-CD1C-4DC6-B931-4DB08015AD1C}.Debug|x86.Build.0 = Debug|Win32
+		{A2AD2C67-CD1C-4DC6-B931-4DB08015AD1C}.Release|x64.ActiveCfg = Release|Win32
+		{A2AD2C67-CD1C-4DC6-B931-4DB08015AD1C}.Release|x86.ActiveCfg = Release|Win32
+		{A2AD2C67-CD1C-4DC6-B931-4DB08015AD1C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

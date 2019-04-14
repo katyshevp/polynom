@@ -109,21 +109,21 @@ void TPolinom::operator+=(TPolinom &n)
 	}
 }
 
-ostream& operator<<(ostream  &ostr, TPolinom &p)
+ostream& operator<<(ostream  &ostr, TPolinom &q)
 {
-	if (p.size == 0)
+	if (q.size == 0)
 		cout << 0;
 	else
 	{
-		for (p.Reset(); !p.IsEnd(); p.GoNext())
+		for (q.Reset(); !q.IsEnd(); q.GoNext())
 		{
-			if (p.pos != 0)
-				if (p.pCurr->val.coeff > 0)
-					ostr << "+" << p.pCurr->val;
+			if (q.pos != 0)
+				if (q.pCurr->val.coeff > 0)
+					ostr << "+" << q.pCurr->val;
 				else
-					ostr << p.pCurr->val;
+					ostr << q.pCurr->val;
 			else
-				ostr << p.pCurr->val;
+				ostr << q.pCurr->val;
 		}
 	}
 	return ostr;
