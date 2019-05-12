@@ -156,7 +156,7 @@ void THeadList<T>::Reset()
 		throw - 1;
 	pCurr = pFirst;
 	pPrev = pHead;
-	pos = 0;
+	pos = 1;
 }
 
 template <class T>
