@@ -112,7 +112,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="THeadList.h" />
-    <ClInclude Include="TLink.h" />
     <ClInclude Include="TMonom.h" />
     <ClInclude Include="TPolinom.h" />
   </ItemGroup>
