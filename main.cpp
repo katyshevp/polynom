@@ -1,78 +1,47 @@
-#include "THeadList.h"
-#include <cstdlib>
 #include "TPolinom.h"
+
+
+
+using namespace std;
 
 int main()
 {
-	double m;
-	int r , k;
-	TPolinom p, q,copy;
-	M1:
-	cout << "The first polinom :" << endl;
+	setlocale(LC_CTYPE, "Russian");
+	int r, m;
+	TPolinom p, q, copy;
+	cout << "первый полином" << endl;
 	cin >> p;
 	system("cls");
-	cout << "The second polinom :" << endl;
+	cout << "второй полином" << endl;
 	cin >> q;
-	cout << "The multiplication number :" << endl;
-	cin >> m;
 	system("cls");
-	cout << "The first polinom: " << p << endl;
-	cout << "The second polinom: " << q << endl;
-	cout << "Choose the operation: " << endl;
-	cout << "1)+" << endl;
-	cout << "2)-" << endl;
-	cout << "3)*" << endl;
+	cout << "первый полином: " << p << endl;
+	cout << "второй полином: " << q << endl;
+M1:
+	cout << "¬ыберите операцию" << endl;
+	cout << " 1)P + Q" << endl;
+	cout << " 2)P - Q" << endl;
+	cout << " 3)P * Q" << endl;
 	cin >> r;
 	if (r == 1)
 	{
-		cout << "OPERATION +" << endl;
 		p += q;
-		cout << "p+q=" << p << endl;
-		cout << "Do you want to countinue?" << endl;
-		cout << "1)Yes" << endl;
-		cout << "2)No" << endl;
-		cin >> k;
-		if (k = 1)
-			goto M1;
-		if (k = 2)
-		{
-			system("cls");
-			cout << "----EXIT--------EXIT--------EXIT--------EXIT--------EXIT--------EXIT----" << endl;
-		}
+		cout << "P + Q" << endl << p << endl;
+		goto M1;
 	}
 	if (r == 2)
 	{
-		cout << "OPERATION -" << endl;
 		p -= q;
-		cout << "p-q=" << p << endl;
-		cout << "Do you want to countinue?" << endl;
-		cout << "1)Yes" << endl;
-		cout << "2)No" << endl;
-		cin >> k;
-		if (k = 1)
-			goto M1;
-		if (k = 2)
-		{
-			system("cls");
-			cout << "----EXIT--------EXIT--------EXIT--------EXIT--------EXIT--------EXIT----" << endl;
-		}
+		cout << "P - Q" << endl << p << endl;
+		goto M1;
 	}
 	if (r == 3)
 	{
-		cout << "OPERANION *" << endl;
+		cout << "„исло дл€ умножени€:" << endl;
+		cin >> m;
 		p *= m;
-		cout << "p*m=" << p << endl;
-		cout << "Do you want to countinue?" << endl;
-		cout << "1)Yes" << endl;
-		cout << "2)No" << endl;
-		cin >> k;
-		if (k = 1)
-			goto M1;
-		if (k = 2)
-		{
-			system("cls");
-			cout << "----EXIT--------EXIT--------EXIT--------EXIT--------EXIT--------EXIT----" << endl;
-		}
+		cout << "P * Q" << endl << p << endl;
+		goto M1;
 	}
 	system("pause");
 

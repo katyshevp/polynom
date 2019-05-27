@@ -1,83 +1,75 @@
-#pragma once
 #include <iostream>
 using namespace std;
-
-struct TMonom 
+struct TMonom
 {
 	double coeff;
 	int PowX, PowY, PowZ;
 };
 
-bool operator == (const TMonom& m1, const TMonom& m2) 
+bool operator==(const TMonom &m1, const TMonom &m2)
 {
-	if (m1.PowX == m2.PowX&&m1.PowY == m2.PowY&&m1.PowZ == m2.PowZ)
-		return true;
-	else
-		return false;
+	return (m1.PowX == m2.PowX && m1.PowY == m2.PowY && m1.PowZ == m2.PowZ);
 }
 
-bool operator >= (const TMonom& m1, const TMonom& m2) 
-{
-	if (m1 == m2)return true;
-	else if (m1.PowX > m2.PowX)return true;
-	else if (m1.PowY > m2.PowY)return true;
-	else if (m1.PowZ > m2.PowZ)return true;
-	else
-		return false;
-}
-
-bool operator <=(const TMonom& m1, const TMonom& m2) 
-{
-	if (m1 == m2)return true;
-	else if (m1.PowX < m2.PowX)return true;
-	else if (m1.PowY < m2.PowY)return true;
-	else if (m1.PowZ < m2.PowZ)return true;
-	else
-		return false;
-}
-
-bool operator != (const TMonom& m1, const TMonom& m2) 
+bool operator!=(const TMonom &m1, const TMonom &m2)
 {
 	return !(m1 == m2);
 }
 
-bool operator > (const TMonom& m1, const TMonom& m2) 
+
+bool operator>(const TMonom &m1, const TMonom &m2)
 {
-	if (m1.PowX > m2.PowX)return true;
-	else if (m1.PowY > m2.PowY)return true;
-	else if (m1.PowZ > m2.PowZ)return true;
+	if (m1.PowX > m2.PowX)
+		return true;
 	else
-		return false;
+		if (m1.PowX == m2.PowX && m1.PowY > m2.PowY)
+			return true;
+		else
+			if (m1.PowY == m2.PowY && m1.PowZ > m2.PowZ)
+				return true;
+			else
+				return false;
 }
 
-bool operator < (const TMonom& m1, const TMonom& m2) 
+bool operator<(const TMonom &m1, const TMonom &m2)
 {
-	if (m1.PowX < m2.PowX)return true;
-	else if (m1.PowY < m2.PowY)return true;
-	else if (m1.PowZ < m2.PowZ)return true;
+	if (m1.PowX < m2.PowX)
+		return true;
 	else
-		return false;
+		if (m1.PowX == m2.PowX && m1.PowY < m2.PowY)
+			return true;
+		else
+			if (m1.PowY == m2.PowY && m1.PowZ < m2.PowZ)
+				return true;
+			else
+				return false;
 }
-
 istream &operator>>(istream &istr, TMonom &m)
 {
 	int coeff, x, y, z;
-	std::cout << "-----------------------------------------------------" << endl;
-	std::cout << "Coeff:";
+	std::cout << "-----------------------------------" << endl;
+	cout << "Коэффицент:";
 	istr >> coeff;
-	std::cout << "Power of X:";
+	if (coeff == 0)
+		throw - 1;
+	cout << "Степень X: ";
 	istr >> x;
-	std::cout << "Power of Y:";
+	if (x < -1)
+		throw - 1;
+	cout << "Степень Y: ";
 	istr >> y;
-	std::cout << "Power of Z:";
+	if (y < -1)
+		throw - 1;
+	cout << "Степень Z: ";
 	istr >> z;
+	if (z < -1)
+		throw - 1;
 	m.PowX = x;
 	m.PowY = y;
 	m.PowZ = z;
 	m.coeff = coeff;
 	return istr;
 }
-
 ostream& operator<<(ostream &ostr, const TMonom &m)
 {
 	if (m.coeff != 0)
@@ -86,7 +78,12 @@ ostream& operator<<(ostream &ostr, const TMonom &m)
 			ostr << m.coeff;
 		else
 		{
-			if (m.coeff != 1)
+			if (abs(m.coeff) == 1)
+			{
+				if (m.coeff == -1)
+					cout << "-";
+			}
+			else
 				ostr << m.coeff << " ";
 			if (m.PowX != 0)
 			{
@@ -110,7 +107,6 @@ ostream& operator<<(ostream &ostr, const TMonom &m)
 	}
 	return  ostr;
 }
-
 TMonom InsValueInMonom(double coeff, int x, int y, int z)
 {
 	TMonom m;

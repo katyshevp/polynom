@@ -1,192 +1,176 @@
 #pragma once
 #include "THeadList.h"
 #include "TMonom.h"
-#include <iostream>
 
-class TPolinom :public THeadList<TMonom> 
+class TPolinom : public THeadList <TMonom>
 {
 public:
-	void InsMonom(const TMonom &n);
-	void operator *=(double d);
-	void operator *=(TMonom &n);
-	void operator +=(TMonom &n) 
-	{ 
-		InsMonom(n); 
-	}
-	void operator +=(TPolinom &n);
-
-	void operator *=(const int &n);
-	void operator -=(TPolinom &n);
-	void operator +=(double d);
-	void operator -=(double d);
 	TPolinom();
-	friend ostream& operator<<(ostream &ostr, const TPolinom &n);
-	friend istream& operator>>(istream &istr, TPolinom &n);
+	TPolinom(TPolinom &p);
+	void InsMonom(const TMonom &m);
+	TPolinom operator=(TPolinom &p);
+	void operator+=(TPolinom q);
+	void operator-=(TPolinom q);
+	void operator*=(const int &n);
+	void operator*=(const TMonom &m);
+	friend istream &operator>>(istream &istr, TPolinom &p);
+	friend ostream& operator<<(ostream &ostr, TPolinom &p);
 };
 
 TPolinom::TPolinom()
 {
 	TMonom m;
 	m.coeff = 0;
-	m.PowX = m.PowY = 0;
+	m.PowX = 0;
+	m.PowY = 0;
 	m.PowZ = -1;
 	pHead->val = m;
 }
-
-void TPolinom::InsMonom(const TMonom &n) 
+TPolinom::TPolinom(TPolinom & p)
 {
+	pHead->val = p.pHead->val;
+	for (p.Reset(); !p.IsEnd(); p.GoNext())
+	{
+		InsLast(p.pCurr->val);
+	}
+}
+void TPolinom::InsMonom(const TMonom &m)
+{
+	bool flag = 0;
 	if (size == 0)
-		InsFirst(n);
+		InsFirst(m);
 	else
 		for (Reset(); !IsEnd(); GoNext())
 		{
-			if (n < pLast->val)
+			if (pCurr->val == m)
 			{
-				InsLast(n);
-				break;
-			}
-			if (pCurr->val == n)
-			{
-				pCurr->val.coeff += n.coeff;
+				pCurr->val.coeff += m.coeff;
+				flag = 1;
 				if (pCurr->val.coeff == 0)
 				{
-					DelCurr();
+					DelCurrent();
 					break;
 				}
 			}
-			if (n > pCurr->val)
+			if (m > pCurr->val)
 			{
-				InsCurr(n);
+				InsCurrent(m);
 				break;
 			}
 		}
-}
-
-void TPolinom::operator*=(double d) 
-{
-	for (Reset(); !IsEnd(); GoNext())
-		pCurr->val.coeff *= d;
-}
-
-void TPolinom::operator *= (TMonom &n) 
-{
-	for (Reset(); !IsEnd(); GoNext())
+	if (pCurr == pHead && flag == 0)
 	{
-		pCurr->val.coeff *= n.coeff;
-		if (pCurr->val.coeff == 0)
-		{
-			DelCurr();
-			break;
-		}
-		pCurr->val.PowX += n.PowX;
-		pCurr->val.PowY += n.PowY;
-		pCurr->val.PowZ += n.PowZ;
+		InsCurrent(m);
+		pos = size;
 	}
 }
 
-void TPolinom::operator+=(TPolinom &n) 
+TPolinom TPolinom ::operator=(TPolinom &p)
 {
+	if (size != 0)
+		Reset();
+	if (size > p.size)
+	{
+		Reset();
+		while (!IsEnd())
+		{
+			DelCurrent();
+		}
+
+	}
+	for (p.Reset(); !p.IsEnd(); p.GoNext())
+	{
+		this->InsMonom(p.pCurr->val);
+	}
+	return *this;
+}
+
+void TPolinom::operator+=(TPolinom q) {
 	Reset();
-	n.Reset();
+	q.Reset();
 	while (1)
 	{
-		if (pCurr->val > n.pCurr->val)GoNext();
-		else if (pCurr->val < n.pCurr->val) 
-		{
-			InsCurr(n.pCurr->val);
-			n.GoNext();
-		}
+		if (pCurr->val > q.pCurr->val)
+			GoNext();
 		else
-		{
-			if (pCurr->val.PowZ == -1 || n.pCurr->val.PowZ == -1)
-				break;
-			if ((n.pCurr->val.coeff + pCurr->val.coeff) == 0)
+			if (pCurr->val < q.pCurr->val)
 			{
-				DelCurr();
-				n.GoNext();
+				InsCurrent(q.pCurr->val);
+				q.GoNext();
 			}
-			else {
-				pCurr->val.coeff = n.pCurr->val.coeff + pCurr->val.coeff;
-				n.GoNext();
-				GoNext();
-			}
-		}
-	}
-}
-
-ostream& operator<<(ostream  &ostr, TPolinom &q)
-{
-	if (q.size == 0)
-		cout << 0;
-	else
-	{
-		for (q.Reset(); !q.IsEnd(); q.GoNext())
-		{
-			if (q.pos != 0)
-				if (q.pCurr->val.coeff > 0)
-					ostr << "+" << q.pCurr->val;
-				else
-					ostr << q.pCurr->val;
 			else
-				ostr << q.pCurr->val;
-		}
+			{
+				if (pCurr->val.PowZ == -1 || q.pCurr->val.PowZ == -1)
+					break;
+				if ((q.pCurr->val.coeff + pCurr->val.coeff) == 0)
+				{
+					DelCurrent();
+					q.GoNext();
+				}
+				else {
+					pCurr->val.coeff = q.pCurr->val.coeff + pCurr->val.coeff;
+					q.GoNext();
+					GoNext();
+				}
+			}
 	}
-	return ostr;
 }
-
-istream& operator>>(istream &istr, TPolinom &n)
+void TPolinom::operator-=(TPolinom q)
 {
-	int k;
-	int i = 0;
-	std::cout << "How many peaces: ";
-	istr >> k;
-	while (i<k)
-	{
-		std::cout << "Monom number:" << i + 1 << endl;
-		TMonom m1;
-		istr >> m1;
-		n.InsMonom(m1);
-		i++;
-		std::cout << "-----------------------------------------------------" << endl;
-	}
-	return istr;
+	q *= -1;
+	this->operator+=(q);
 }
-
 void TPolinom::operator*=(const int &n)
 {
 	for (Reset(); !IsEnd(); GoNext())
 	{
-		pCurr->val.coeff *= n;
+		this->pCurr->val.coeff *= n;
 	}
 }
-
-void TPolinom::operator-=(TPolinom &n)
+void TPolinom ::operator*=(const TMonom &m)
 {
-	n *= -1;
-	this->operator+=(n);
-}
-
-void TPolinom::operator+=(double d)
-{
-	if (pLast->val.PowX == 0)
+	for (Reset(); !IsEnd(); GoNext())
 	{
-		if (pLast->val.PowY == 0)
-		{
-			if (pLast->val.PowZ == 0)
-				pLast->val.coeff += d;
-		}
+		pCurr->val.coeff *= m.coeff;
+		pCurr->val.PowX += m.PowX;
+		pCurr->val.PowY += m.PowY;
+		pCurr->val.PowZ += m.PowZ;
 	}
+}
+
+istream &operator>>(istream &istr, TPolinom &n)
+{
+	int k;
+	int i = 0;
+	std::cout << "Введите колличество переменных: ";
+	istr >> k;
+	while (i < k)
+	{
+		std::cout << "Моном:" << i + 1 << endl;
+		TMonom m1;
+		istr >> m1;
+		n.InsMonom(m1);
+		i++;
+		std::cout << "-----------------------------" << endl;
+	}
+	return istr;
+}
+ostream& operator<<(ostream &ostr, TPolinom &p)
+{
+	if (p.size == 0)
+		cout << 0;
 	else
 	{
-		TMonom m1;
-		m1.coeff = d;
-		m1.PowX = m1.PowY = m1.PowZ = 0;
-		InsLast(m1);
+		for (p.Reset(); !p.IsEnd(); p.GoNext())
+		{
+			if (p.pos != 0)
+				if (p.pCurr->val.coeff > 0)
+					ostr << "+" << p.pCurr->val;
+				else
+					ostr << p.pCurr->val;
+			else
+				ostr << p.pCurr->val;
+		}
 	}
-}
-
-void TPolinom::operator-=(double d)
-{
-	d *= -1;
-	this->operator+=(d);
+	return ostr;
 }

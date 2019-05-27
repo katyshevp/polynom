@@ -11,7 +11,7 @@ class THeadList
 public:
 	THeadList();		//Конструктор по умолчанию
 	~THeadList();		//Деструктор
-						//protected :	//Для работы тестов требуется публичный доступ
+//protected :	//Для работы тестов требуется публичный доступ
 public:
 	TLink <T> *pHead,	//Указатель на голову
 		*pFirst,		//Указатель на первый элемент в списке
@@ -20,10 +20,10 @@ public:
 		*pCurr;			//Указатель на текущее звено
 	int pos;			//Позиция звена в списке
 	int size;			//Размер списка
-	void InsCurr(const T & elem);	//Добавить звено между предыдущем и текущем звеном
+	void InsCurrent(const T & elem);	//Добавить звено между предыдущем и текущем звеном
 	void InsFirst(const T &elem);	//Вставить звено в начало  списка
 	void InsLast(const T &elem);	//Вставить звено в конец списка
-	void DelCurr();	//Удалить текущее звено
+	void DelCurrent();	//Удалить текущее звено
 	void Reset();		//Обнулить счетчики
 	void GoNext();		//Нужные указатели передвигает вправо на 1 звено
 	bool IsEnd();		// Проверка на конец списка
@@ -53,7 +53,7 @@ THeadList <T >::~THeadList()
 }
 
 template <class T>
-void THeadList <T> ::InsCurr(const T &elem)
+void THeadList <T> ::InsCurrent(const T &elem)
 {
 	if (pCurr == pHead && pPrev == pLast)
 	{
@@ -130,7 +130,7 @@ void THeadList <T> ::InsLast(const T & elem)
 
 }
 template <class T>
-void THeadList <T>::DelCurr()
+void THeadList <T>::DelCurrent()
 {
 	if (size == 0)
 		throw "Error";
